@@ -1,3 +1,6 @@
+MAX_LETTERS = 3
+
+
 class Word:
 
     def __init__(self, word):
@@ -22,7 +25,7 @@ class Game:
         print("You have already played:", ", ".join(sorted(self.used_letters)))
 
     def check_if_lost(self):
-        if len(self.used_letters) > 3:
+        if len(self.used_letters) > MAX_LETTERS:
             self.lost = True
 
 
