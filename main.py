@@ -12,6 +12,7 @@ class Game:
     def __init__(self, word):
         self.word = word
         self.used_letters = set()
+        self.lost = False
 
     def ask_for_letter(self):
         played_letter = input("Play a new letter: ")
@@ -20,13 +21,18 @@ class Game:
     def show_letters(self):
         print("You have already played:", ", ".join(sorted(self.used_letters)))
 
+    def check_if_lost(self):
+        if len(self.used_letters) > 3:
+            self.lost = True
+
 
 if __name__ == '__main__':
     game = Game("password")
 
-    for x in range(3):
+    while not game.lost:
         game.ask_for_letter()
+        game.check_if_lost()
 
     game.show_letters()
-    print(game.word)
-
+    print("Game lost!")
+    print("The word was:", game.word)
