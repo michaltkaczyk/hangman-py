@@ -1,3 +1,6 @@
+MAX_LETTERS = 3
+
+
 class Word:
 
     def __init__(self, word):
