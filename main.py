@@ -46,8 +46,8 @@ class Game:
     def show_letters(self):
         print("You have already played:", ", ".join(sorted(self.used_letters)))
 
-    def check_if_game_is_lost(self):
-        if len(self.used_letters) > 3:
+    def check_if_lost(self):
+        if len(self.used_letters) > MAX_LETTERS:
             self.lost = True
 
 
@@ -56,7 +56,7 @@ if __name__ == '__main__':
 
     while not game.lost:
         game.ask_for_letter()
-        game.check_if_game_is_lost()
+        game.check_if_lost()
 
     game.show_letters()
     print("Game lost!")
