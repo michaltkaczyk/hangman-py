@@ -1,4 +1,9 @@
+import random
+
 LIVES = 3
+
+with open('words.txt') as f:
+    words = f.read().splitlines()
 
 
 class Game:
@@ -61,7 +66,7 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game("password")
+    game = Game(random.choice(words))
 
     while not game.lost:
         game.play()
