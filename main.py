@@ -9,7 +9,7 @@ with open('words.txt') as f:
 class Game:
 
     def __init__(self, word):
-        self.word = word
+        self.word = word.upper()
         self.used_letters = set()
         self.played_letter = ""
         self.lives_remaining = LIVES
@@ -17,7 +17,7 @@ class Game:
         self.won = False
 
     def ask_for_letter(self):
-        self.played_letter = input("Play a new letter: ")
+        self.played_letter = input("Play a new letter: ").upper()
 
         if len(self.played_letter) != 1:
             print("Play a SINGLE letter!")
@@ -31,8 +31,9 @@ class Game:
                 print("Wrong letter, life lost")
                 self.lives_remaining -= 1
 
-    def show_letters(self):
-        print("You have already played:", ", ".join(sorted(self.used_letters)), "\n")
+    def show_used_letters(self):
+        if len(self.used_letters) > 0:
+            print("You have already played:", ", ".join(sorted(self.used_letters)), "\n")
 
     def check_if_game_finished(self):
         if self.lives_remaining < 1:
@@ -60,8 +61,7 @@ class Game:
         while not game.lost and not game.won:
             self.show_hashed_word()
             self.show_remaining_lives()
-            if len(self.used_letters) > 0:
-                self.show_letters()
+            self.show_used_letters()
             self.ask_for_letter()
             self.check_if_game_finished()
 
