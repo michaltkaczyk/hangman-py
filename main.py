@@ -1,6 +1,6 @@
 import random
 
-LIVES = 3
+LIVES = 6
 
 with open('words.txt') as f:
     words = f.read().splitlines()
@@ -14,6 +14,7 @@ class Game:
         self.played_letter = ""
         self.lives_remaining = LIVES
         self.lost = False
+        self.won = False
 
     def ask_for_letter(self):
         self.played_letter = input("Play a new letter: ")
@@ -33,13 +34,13 @@ class Game:
     def show_letters(self):
         print("You have already played:", ", ".join(sorted(self.used_letters)), "\n")
 
-    def show_lost_game_screen(self):
-        print("Game lost! The word was:", self.word)
-
-    def check_if_lost(self):
+    def check_if_game_finished(self):
         if self.lives_remaining < 1:
             self.lost = True
-            self.show_lost_game_screen()
+            print("Game lost! The word was:", self.word)
+        elif set(self.word).issubset(self.used_letters):
+            self.won = True
+            print("Game won!")
 
     def show_hashed_word(self):
         hashed_word = ""
@@ -56,17 +57,15 @@ class Game:
         print("Lives remaining:", "*" * self.lives_remaining)
 
     def play(self):
-        while not game.lost:
+        while not game.lost and not game.won:
             self.show_hashed_word()
             self.show_remaining_lives()
             if len(self.used_letters) > 0:
                 self.show_letters()
             self.ask_for_letter()
-            self.check_if_lost()
+            self.check_if_game_finished()
 
 
 if __name__ == '__main__':
     game = Game(random.choice(words))
-
-    while not game.lost:
-        game.play()
+    game.play()
