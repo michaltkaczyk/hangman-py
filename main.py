@@ -16,6 +16,24 @@ class Game:
         self.lost = False
         self.won = False
 
+    def show_hashed_word(self):
+        hashed_word = ""
+
+        for letter in self.word:
+            if letter in self.used_letters:
+                hashed_word += letter
+            else:
+                hashed_word += "_"
+
+        print("Secret word is:", hashed_word)
+
+    def show_remaining_lives(self):
+        print("Lives remaining:", "*" * self.lives_remaining)
+
+    def show_used_letters(self):
+        if len(self.used_letters) > 0:
+            print("You have already played:", ", ".join(sorted(self.used_letters)), "\n")
+
     def ask_for_letter(self):
         self.played_letter = input("Play a new letter: ").upper()
 
@@ -31,10 +49,6 @@ class Game:
                 print("Wrong letter, life lost")
                 self.lives_remaining -= 1
 
-    def show_used_letters(self):
-        if len(self.used_letters) > 0:
-            print("You have already played:", ", ".join(sorted(self.used_letters)), "\n")
-
     def check_if_game_finished(self):
         if self.lives_remaining < 1:
             self.lost = True
@@ -42,20 +56,6 @@ class Game:
         elif set(self.word).issubset(self.used_letters):
             self.won = True
             print("Game won!")
-
-    def show_hashed_word(self):
-        hashed_word = ""
-
-        for letter in self.word:
-            if letter in self.used_letters:
-                hashed_word += letter
-            else:
-                hashed_word += "_"
-
-        print("Secret word is:", hashed_word)
-
-    def show_remaining_lives(self):
-        print("Lives remaining:", "*" * self.lives_remaining)
 
     def play(self):
         while not game.lost and not game.won:
