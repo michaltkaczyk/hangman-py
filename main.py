@@ -66,6 +66,22 @@ class Game:
             self.check_if_game_finished()
 
 
+def ask_play_again():
+    while True:
+        choice = input("Would you like to play again? [Y/N] ").upper()
+        if choice == "Y":
+            return True
+        elif choice == "N":
+            return False
+        else:
+            pass
+
+
 if __name__ == '__main__':
-    game = Game(random.choice(words))
-    game.play()
+
+    play_again_on = True
+
+    while play_again_on:
+        game = Game(random.choice(words))
+        game.play()
+        play_again_on = ask_play_again()
